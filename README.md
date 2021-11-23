@@ -38,7 +38,7 @@ Create a `Login` screen with the following details:
 - Use function components and React hooks.
 - Use a `react-router` path of `/login`.
 - Use [material-ui](https://material-ui.com/) components.
-- `POST` login details to `http://localhost:3001/login` as `json` in the following format:
+- `POST` login details to `http://localhost:3001/api/login` as `json` in the following format:
   ```json
   {
     "username": "...",

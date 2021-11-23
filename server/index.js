@@ -2,6 +2,14 @@ const express = require('express');
 const app = express();
 const port = 3001;
 
+const cors = require('cors');
+
+app.use(
+  cors({
+    origin: '*',
+  })
+);
+
 app.use(express.json());
 
 const TEST_USER = {
@@ -20,27 +28,21 @@ function login(postParams) {
       fullname: 'Test User',
     };
   }
-  return null
+  return null;
 }
 
 app.post('/api/login', (req, res) => {
   const userDetails = login(req.body);
   if (userDetails) {
-    res
-      .status(200)
-      .type('application/json')
-      .send(userDetails);
+    res.status(200).type('application/json').send(userDetails);
   } else {
-    res
-      .status(401)
-      .type('application/json')
-      .send({
-        status: 'error',
-        message: 'incorrect username or password.'
-      });
+    res.status(401).type('application/json').send({
+      status: 'error',
+      message: 'incorrect username or password.',
+    });
   }
-})
+});
 
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`)
+  console.log(`Server listening at http://localhost:${port}`);
 });
