@@ -10,9 +10,6 @@ import {
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import { SESSION_ACTIONS } from '../../actions/types';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,15 +18,17 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    background: '#102a43',
   },
   form: {
-    width: '300px',
+    width: '250px',
     height: '250px',
     padding: '20px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'column',
+    backgroundColor: 'none',
   },
   buttons: {
     display: 'flex',
@@ -85,13 +84,17 @@ function LoginForm({ push, setUserDetails }) {
   return (
     <>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
+        <Alert onClose={handleClose} severity="error" variant="filled">
           {errorMessage}
         </Alert>
       </Snackbar>
       <Box className={classes.root}>
-        <Paper variant="elevation" elevation={5}>
-          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <Paper variant="outlined">
+          <form
+            className={classes.form}
+            onSubmit={handleSubmit(onSubmit)}
+            data-testid="loginForm"
+          >
             <Typography variant="h5" component="h5" gutterBottom>
               Please log in below
             </Typography>
@@ -143,21 +146,4 @@ function LoginForm({ push, setUserDetails }) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    isLoggedIn: !!state.getIn(['session', 'username']),
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setUserDetails: userDetails =>
-      dispatch({
-        type: SESSION_ACTIONS.SET_USER_DETAILS,
-        payload: userDetails,
-      }),
-    push: path => dispatch(push(path)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

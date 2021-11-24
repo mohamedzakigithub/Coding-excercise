@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
 import Main from './containers/Main';
-import Login from './components/Login';
+import Login from './containers/Login';
 
 function Routes({ history }) {
   return (
